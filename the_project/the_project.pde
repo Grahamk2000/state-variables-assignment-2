@@ -76,10 +76,10 @@ void homeScreen() { // the first screen you see
   rect(0, 0, width/2, height);
   fill(0, 0, 255);
   rect(width/2, 0, width/2, height);
-  textSize(32);
+  textSize(70);
   fill(255);
-  text("Click this side to play with moving obstacles", 10, 30, (width/3), height);
-  text("Click this side to play with static obstacles", ((width/2) + 10), 30, (width/3), height);
+  text("Click This Side To Play With Moving Obstacles", 10, 30, (width/3), height);
+  text("Click This Side To Play With  Static Obstacles", ((width/2) + 10), 30, (width/3), height);
 
 
   
@@ -113,7 +113,7 @@ void checkForNewLevel() {
     }
 
     randomColour = color(random(255), random(255), random(255)); // chooses a random colour at the start of every level
-    obstacleSpeed = random(-5, 5 );
+    obstacleSpeed = random(-5, 5 );// sets a random speed for the obstacles
    
     if (level % 2 == 0 ){
     numberOfObstacles ++ ;  
@@ -152,7 +152,7 @@ void drawCourt() { // draws the screen used for the game
   text(level, 10, 30);
 }
 
-void chooseNewObsatcleLocations() {
+void chooseNewObsatcleLocations() {// chooses random locations for the obstacles
   for (int i=0; i<obsY.length; i++) {
     obsY[i] = int(random(100, (height - 100)));
   }
