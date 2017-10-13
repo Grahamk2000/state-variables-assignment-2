@@ -3,11 +3,10 @@
 
 
 // Graham Kelly
-// Interactive scene assignment
+// State variable assignment
 // September 25th, 2017
 // Computer science 30, WMCI
-// For the extra for experts portion of the assignment I chose to explore the random function,
-// I used the random function for to randomize the shape and colour of many objects in my game
+// For the extra for experts portion of the assignment I chose to explore arrays
 
 //variable setup
 float diam = 20;
@@ -26,44 +25,38 @@ float obstacleYI;
 int level = 0;
 float obstacleDiam;
 float state = 0;
-float obstacleSpeed = 5;
+float obstacleSpeed;
+int numberOfObstacles = 10;
 //float randomObsY = random(75, (height - 100));
-int[] obsY = new int[8];
-int[] obsX = new int[8];
+int[] obsY = new int[(numberOfObstacles)];
+int[] obsX = new int[(numberOfObstacles)];
 boolean obstacleUpOrDown;
 
 
 
 void setup() { // sets the size of the screen
-  size(1200, 800);
+  size(1500, 800);
   background(0);
-  
-  
-  
-  
-  //for (int i=0; i<obsY.length; i++) {
-  //  obsY[i] = int(random(100, (height - 100)));
-  //}
-  //for (int i=0; i<obsX.length; i++) {
-  //obsX[i] = int(random(100, (width - 100)));
-  //}
-  
+
 }
 
 
 void draw() { 
 
   if (state == 0) { // choose between moving and static obstacles
+    cursor(HAND);
     homeScreen();
   }
 
   if (state == 1) { 
+    noCursor();
     checkForNewLevel();
     drawBall();
     drawObstacle();
   }
 
   if (state == 2) {
+    noCursor();
     checkForNewLevel();
     drawBall();
 
@@ -72,13 +65,14 @@ void draw() {
   }
 
   if (state == 3) {
+    noCursor();
     retryScreen();
   }
 }
 
 void homeScreen() { // the first screen you see
-  background(0);
-  fill(255, 0, 0);
+  background(0); 
+  fill(255, 0, 0); 
   rect(0, 0, width/2, height);
   fill(0, 0, 255);
   rect(width/2, 0, width/2, height);
@@ -86,8 +80,7 @@ void homeScreen() { // the first screen you see
   fill(255);
   text("Click this side to play with moving obstacles", 10, 30, (width/3), height);
   text("Click this side to play with static obstacles", ((width/2) + 10), 30, (width/3), height);
-  //fill(255, 0, 0);
-  //rect(0, 0, width/2, height);
+
 
   
   
@@ -120,12 +113,17 @@ void checkForNewLevel() {
     }
 
     randomColour = color(random(255), random(255), random(255)); // chooses a random colour at the start of every level
-
     obstacleSpeed = random(-5, 5 );
+   
+    if (level % 2 == 0 ){
+    numberOfObstacles ++ ;  
+    }
     
     obstacleDiam = random(40, 100); // chooses diameter of obstacles at the start of every level
+    
     chooseNewObsatcleLocations();
     level = level + 1;
+    
   }
 }
 
@@ -184,6 +182,9 @@ void moveObstacles() {
   for (int i = 0; i < obsY.length; i++) {
     if (i % 2 == 0){ 
       obsY[i] = obsY[i] + int(obstacleSpeed);
+    }
+    if (i % 5 == 0 ){
+      obsX[i] = obsX[i] + int(obstacleSpeed);
     }
     else {
       obsY[i] = obsY[i] - int(obstacleSpeed);
